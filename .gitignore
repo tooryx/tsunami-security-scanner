@@ -29,4 +29,8 @@ eclipsebin
 
 # bazel
 MODULE.bazel.lock
+bazel-bin
+bazel-out
+bazel-testlogs
+bazel-tsunami-security-scanner
 
