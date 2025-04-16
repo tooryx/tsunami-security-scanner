@@ -19,8 +19,8 @@ syntax = "proto3";
 
 package tsunami.proto;
 
-import "network.proto";
-import "network_service.proto";
+import "proto/network.proto";
+import "proto/network_service.proto";
 
 option java_multiple_files = true;
 option java_outer_classname = "ScanTargetProtos";

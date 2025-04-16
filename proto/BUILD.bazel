@@ -1,0 +1,181 @@
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+
+proto_library(
+    name = "network_proto",
+    srcs = ["network.proto"],
+)
+
+java_proto_library(
+    name = "network_java_proto",
+    deps = [":network_proto"],
+)
+
+py_proto_library(
+    name = "network_py_pb2",
+    deps = [":network_proto"],
+)
+
+proto_library(
+    name = "network_service_proto",
+    srcs = ["network_service.proto"],
+    deps = [
+        ":network_proto",
+        ":software_proto",
+        ":web_crawl_proto",
+    ],
+)
+
+java_proto_library(
+    name = "network_service_java_proto",
+    deps = [":network_service_proto"],
+)
+
+py_proto_library(
+    name = "network_service_py_pb2",
+    deps = [":network_service_proto"],
+)
+
+proto_library(
+    name = "software_proto",
+    srcs = ["software.proto"],
+)
+
+py_proto_library(
+    name = "software_py_pb2",
+    deps = [":software_proto"],
+)
+
+java_proto_library(
+    name = "software_java_proto",
+    deps = [":software_proto"],
+)
+
+proto_library(
+    name = "scan_target_proto",
+    srcs = ["scan_target.proto"],
+    deps = [
+        ":network_proto",
+        ":network_service_proto",
+    ],
+)
+
+proto_library(
+    name = "scan_results_proto",
+    srcs = ["scan_results.proto"],
+    deps = [
+        ":detection_proto",
+        ":network_service_proto",
+        ":reconnaissance_proto",
+        ":vulnerability_proto",
+        "@protobuf//:duration_proto",
+        "@protobuf//:timestamp_proto",
+    ],
+)
+
+java_proto_library(
+    name = "scan_results_java_proto",
+    deps = [":scan_results_proto"],
+)
+
+proto_library(
+    name = "reconnaissance_proto",
+    srcs = ["reconnaissance.proto"],
+    deps = [
+        ":network_proto",
+        ":network_service_proto",
+    ],
+)
+
+py_proto_library(
+    name = "reconnaissance_py_pb2",
+    deps = [":reconnaissance_proto"],
+)
+
+java_proto_library(
+    name = "reconnaissance_java_proto",
+    deps = [":reconnaissance_proto"],
+)
+
+proto_library(
+    name = "vulnerability_proto",
+    srcs = ["vulnerability.proto"],
+)
+
+java_proto_library(
+    name = "vulnerability_java_proto",
+    deps = [":vulnerability_proto"],
+)
+
+py_proto_library(
+    name = "vulnerability_py_pb2",
+    deps = [":vulnerability_proto"],
+)
+
+proto_library(
+    name = "detection_proto",
+    srcs = ["detection.proto"],
+    deps = [
+        ":network_service_proto",
+        ":reconnaissance_proto",
+        ":vulnerability_proto",
+        "@protobuf//:timestamp_proto",
+    ],
+)
+
+java_proto_library(
+    name = "detection_java_proto",
+    deps = [":detection_proto"],
+)
+
+py_proto_library(
+    name = "detection_py_pb2",
+    deps = [":detection_proto"],
+)
+
+proto_library(
+    name = "web_crawl_proto",
+    srcs = ["web_crawl.proto"],
+    deps = [
+        ":network_proto",
+    ],
+)
+
+java_proto_library(
+    name = "web_crawl_java_proto",
+    deps = [":web_crawl_proto"],
+)
+
+proto_library(
+    name = "payload_generator_proto",
+    srcs = ["payload_generator.proto"],
+    deps = [
+        "@protobuf//:wrappers_proto",
+    ],
+)
+
+java_proto_library(
+    name = "payload_generator_java_proto",
+    deps = [":payload_generator_proto"],
+)
+
+py_proto_library(
+    name = "payload_generator_py_pb2",
+    deps = [":payload_generator_proto"],
+)
+
+proto_library(
+    name = "plugin_representation_proto",
+    srcs = ["plugin_representation.proto"],
+    deps = [
+    ],
+)
+
+java_proto_library(
+    name = "plugin_representation_java_proto",
+    deps = [":plugin_representation_proto"],
+)
+
+py_proto_library(
+    name = "plugin_representation_py_pb2",
+    deps = [":plugin_representation_proto"],
+)

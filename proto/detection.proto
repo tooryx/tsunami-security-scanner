@@ -20,9 +20,9 @@ syntax = "proto3";
 package tsunami.proto;
 
 import "google/protobuf/timestamp.proto";
-import "network_service.proto";
-import "reconnaissance.proto";
-import "vulnerability.proto";
+import "proto/network_service.proto";
+import "proto/reconnaissance.proto";
+import "proto/vulnerability.proto";
 
 option java_multiple_files = true;
 option java_outer_classname = "DetectionProtos";
