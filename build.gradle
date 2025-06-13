@@ -1,8 +1,8 @@
 // Current gradle version 6.5.
 
 plugins {
-    id 'net.ltgt.errorprone' apply false
-    id "com.github.johnrengelman.shadow"
+    id 'net.ltgt.errorprone' apply false version "4.2.0"
+    id "com.gradleup.shadow" version "8.3.6"
 }
 
 subprojects {
@@ -12,15 +12,16 @@ subprojects {
     apply plugin: "signing"
 
     apply plugin: 'net.ltgt.errorprone'
-    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'com.gradleup.shadow'
 
     group = 'com.google.tsunami'
-    version = '0.0.27-SNAPSHOT' // Current Tsunami version
+    version = '0.0.30-SNAPSHOT' // Current Tsunami version
 
     repositories {
         maven { // The google mirror is less flaky than mavenCentral()
             url 'https://maven-central.storage-download.googleapis.com/repos/central/data/'
         }
+
         mavenCentral()
         mavenLocal()
     }
@@ -29,70 +30,70 @@ subprojects {
         // All dependency versions.
         autoValueVersion = '1.10.4'
         classGraphVersion = '4.8.65'
-        errorproneVersion = '2.4.0'
+        errorproneVersion = '2.38.0'
         floggerVersion = '0.5.1'
         googleCloudStorageVersion = '1.103.1'
         googleHttpClientVersion = '1.44.1'
-        guavaVersion = '28.2-jre'
-        guiceVersion = '6.0.0'
         grpcVersion = '1.60.0'
         gsonVersion = '2.8.6'
-        jaxbVersion = '2.3.1'
+        guavaVersion = '28.2-jre'
+        guiceVersion = '6.0.0'
+        hiveVersion = '4.0.1'
         javaxAnnotationVersion = '1.3.2'
         javaxInjectVersion = '1'
+        jaxbVersion = '2.3.1'
         jcommanderVersion = '1.48'
         jsoupVersion = '1.9.2'
+        junitVersion = '4.13'
         libajpVersion = '1.0.0'
+        mockitoVersion = '5.12.0'
         mysqlVersion='8.0.33'
         okhttpVersion = '3.12.0'
         postgresqlVersion = '42.6.0'
         protobufVersion = '3.25.2'
         protocVersion = protobufVersion
         snakeyamlVersion = '1.26'
-        junitVersion = '4.13'
-        mockitoVersion = '5.12.0'
-        truthVersion = '1.4.0'
         tcsVersion = '0.0.1'
-        hiveVersion = '2.3.2'
+        truthVersion = '1.4.0'
 
         // All Tsunami dependencies.
         deps = [
-                autovalue: "com.google.auto.value:auto-value-annotations:${autoValueVersion}",
                 autovalue_annotation_processor: "com.google.auto.value:auto-value:${autoValueVersion}",
+                autovalue: "com.google.auto.value:auto-value-annotations:${autoValueVersion}",
                 classgraph: "io.github.classgraph:classgraph:${classGraphVersion}",
                 errorprone: "com.google.errorprone:error_prone_annotations:${errorproneVersion}",
-                flogger: "com.google.flogger:flogger:${floggerVersion}",
-                flogger_google_ext: "com.google.flogger:google-extensions:${floggerVersion}",
                 flogger_backend: "com.google.flogger:flogger-system-backend:${floggerVersion}",
+                flogger_google_ext: "com.google.flogger:google-extensions:${floggerVersion}",
+                flogger: "com.google.flogger:flogger:${floggerVersion}",
                 google_cloud_storage: "com.google.cloud:google-cloud-storage:${googleCloudStorageVersion}",
                 google_http_client: "com.google.http-client:google-http-client:${googleHttpClientVersion}",
-                guava: "com.google.guava:guava:${guavaVersion}",
-                guice: "com.google.inject:guice:${guiceVersion}",
-                guice_assisted: "com.google.inject.extensions:guice-assistedinject:${guiceVersion}",
-                grpc_protobuf: "io.grpc:grpc-protobuf:${grpcVersion}",
                 grpc_context: "io.grpc:grpc-context:${grpcVersion}",
-                grpc_stub: "io.grpc:grpc-stub:${grpcVersion}",
                 grpc_core: "io.grpc:grpc-core:${grpcVersion}",
-                grpc_services: "io.grpc:grpc-services:${grpcVersion}",
-                grpc_testing: "io.grpc:grpc-testing:${grpcVersion}",
                 grpc_netty: "io.grpc:grpc-netty:${grpcVersion}",
-                javax_annotations: "javax.annotation:javax.annotation-api:${javaxAnnotationVersion}",
+                grpc_protobuf: "io.grpc:grpc-protobuf:${grpcVersion}",
+                grpc_services: "io.grpc:grpc-services:${grpcVersion}",
+                grpc_stub: "io.grpc:grpc-stub:${grpcVersion}",
+                grpc_testing: "io.grpc:grpc-testing:${grpcVersion}",
                 gson: "com.google.code.gson:gson:${gsonVersion}",
-                jaxb_runtime: "org.glassfish.jaxb:jaxb-runtime:${jaxbVersion}",
+                guava: "com.google.guava:guava:${guavaVersion}",
+                guice_assisted: "com.google.inject.extensions:guice-assistedinject:${guiceVersion}",
+                guice: "com.google.inject:guice:${guiceVersion}",
+                hive: "org.apache.hive:hive-jdbc:${hiveVersion}",
+                javax_annotations: "javax.annotation:javax.annotation-api:${javaxAnnotationVersion}",
                 javax_inject: "javax.inject:javax.inject:${javaxInjectVersion}",
+                jaxb_runtime: "org.glassfish.jaxb:jaxb-runtime:${jaxbVersion}",
                 jcommander: "com.beust:jcommander:${jcommanderVersion}",
                 jsoup: "org.jsoup:jsoup:${jsoupVersion}",
                 libajp: "com.doyensec:libajp:${libajpVersion}",
                 mysql: "com.mysql:mysql-connector-j:${mysqlVersion}",
                 okhttp: "com.squareup.okhttp3:okhttp:${okhttpVersion}",
                 postgresql:"org.postgresql:postgresql:${postgresqlVersion}",
-                protobuf: "com.google.protobuf:protobuf-java:${protobufVersion}",
                 protobuf_lite: "com.google.protobuf:protobuf-javalite:${protobufVersion}",
                 protobuf_util: "com.google.protobuf:protobuf-java-util:${protobufVersion}",
+                protobuf: "com.google.protobuf:protobuf-java:${protobufVersion}",
                 snakeyaml: "org.yaml:snakeyaml:${snakeyamlVersion}",
                 tcs_common: "com.google.tsunami:tcs-common:${tcsVersion}",
                 tcs_proto: "com.google.tsunami:tcs-proto:${tcsVersion}",
-                hive: "org.apache.hive:hive-jdbc:${hiveVersion}",
 
                 // Test dependencies.
                 guava_testlib: "com.google.guava:guava-testlib:${guavaVersion}",
@@ -150,13 +151,6 @@ subprojects {
                     'Target-Compatibility': targetCompatibility)
         }
 
-        javadoc.options {
-            encoding = 'UTF-8'
-            use = true
-            links 'https://docs.oracle.com/javase/8/docs/api/'
-            source = '8'
-        }
-
         // Log stacktrace to console when test fails.
         test {
             testLogging {
@@ -166,17 +160,6 @@ subprojects {
                 showStackTraces true
             }
             maxHeapSize = '1500m'
-        }
-
-        // See the changelog of Guava for reasons why we need this:
-        // https://github.com/google/guava/releases/tag/v32.1.0
-        sourceSets.all {
-          configurations.getByName(runtimeClasspathConfigurationName) {
-            attributes.attribute(Attribute.of("org.gradle.jvm.environment", String), "standard-jvm")
-          }
-          configurations.getByName(compileClasspathConfigurationName) {
-            attributes.attribute(Attribute.of("org.gradle.jvm.environment", String), "standard-jvm")
-          }
         }
     }
 
@@ -220,6 +203,7 @@ subprojects {
                     }
                 }
             }
+
             repositories {
                 maven {
                     def stagingUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
@@ -234,23 +218,17 @@ subprojects {
                         }
                     }
                 }
+
                 mavenLocal()
             }
         }
 
         signing {
-            required false
             sign publishing.publications.maven
         }
 
-        plugins.withId('com.github.johnrengelman.shadow') {
-            publishing {
-                publications {
-                    maven {
-                        artifact project.tasks.shadowJar
-                    }
-                }
-            }
+        shadowJar {
+            archiveClassifier = null
         }
     }
 }
