@@ -1,0 +1,40 @@
+load("@rules_java//java:java_library.bzl", "java_library")
+load("@rules_java//java:java_plugin.bzl", "java_plugin")
+
+package_group(
+    name = "tsunami_core",
+    packages = [
+        "//...",
+    ]
+)
+
+package(
+    default_visibility = ["//:tsunami_core"]
+)
+
+java_plugin(
+    name = "autovalue_plugin",
+    generates_api = 1,
+    processor_class = "com.google.auto.value.processor.AutoValueProcessor",
+    deps = ["@maven//:com_google_auto_value_auto_value"],
+)
+
+java_library(
+    name = "autovalue_processor",
+    exported_plugins = [":autovalue_plugin"],
+    exports = ["@maven//:com_google_auto_value_auto_value"],
+)
+
+
+java_plugin(
+    name = "autooneof_plugin",
+    generates_api = 1,
+    processor_class = "com.google.auto.value.processor.AutoOneOfProcessor",
+    deps = ["@maven//:com_google_auto_value_auto_value"],
+)
+
+java_library(
+    name = "autooneof_processor",
+    exported_plugins = [":autooneof_plugin"],
+    exports = ["@maven//:com_google_auto_value_auto_value"],
+)

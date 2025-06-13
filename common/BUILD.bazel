@@ -1,0 +1,50 @@
+load("@rules_java//java:java_library.bzl", "java_library")
+
+java_library(
+    name = "common",
+    srcs = glob(["src/main/java/com/**/*.java"]),
+    runtime_deps = [
+        "@maven//:com_mysql_mysql_connector_j",
+        "@maven//:org_apache_hive_hive_jdbc",
+        "@maven//:org_postgresql_postgresql",
+    ],
+    deps = [
+        "@maven//:com_beust_jcommander",
+        "@maven//:com_google_auto_value_auto_value_annotations",
+        "@maven//:com_google_auto_value_auto_value",
+        "@maven//:com_google_cloud_google_cloud_core",
+        "@maven//:com_google_cloud_google_cloud_storage",
+        "@maven//:com_google_code_findbugs_jsr305",
+        "@maven//:com_google_code_gson_gson",
+        "@maven//:com_google_errorprone_error_prone_annotations",
+        "@maven//:com_google_flogger_flogger_system_backend",
+        "@maven//:com_google_flogger_flogger",
+        "@maven//:com_google_flogger_google_extensions",
+        "@maven//:com_google_guava_guava",
+        "@maven//:com_google_inject_extensions_guice_assistedinject",
+        "@maven//:com_google_inject_guice",
+        "@maven//:com_google_protobuf_protobuf_java",
+        "@maven//:com_google_protobuf_protobuf_javalite",
+        "@maven//:com_google_truth_truth",
+        "@maven//:com_squareup_okhttp3_okhttp",
+        "@maven//:io_github_classgraph_classgraph",
+        "@maven//:javax_inject_javax_inject",
+        "@maven//:org_checkerframework_checker_qual",
+        "@maven//:org_yaml_snakeyaml",
+        "//:autooneof_processor",
+        "//:autovalue_processor",
+        "//proto:network_java_proto",
+        "//proto:network_service_java_proto",
+        "//proto:plugin_service_java_proto",
+    ],
+)
+
+# java_library(
+#     name = "common_tests",
+#     testonly = True,
+#     srcs = glob(["src/test/java/com/**/*.java"]),
+#     deps = [
+#         ":common",
+#         ":common_testing",
+#     ],
+# )

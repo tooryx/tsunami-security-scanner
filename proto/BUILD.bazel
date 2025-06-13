@@ -1,6 +1,14 @@
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_proto_grpc_java//:defs.bzl", "java_grpc_library")
+load("@rules_proto_grpc_python//:defs.bzl", "python_grpc_library")
+
+package(
+    default_visibility = [
+        "//:tsunami_core",
+    ],
+)
 
 proto_library(
     name = "network_proto",
@@ -180,4 +188,43 @@ java_proto_library(
 py_proto_library(
     name = "plugin_representation_py_pb2",
     deps = [":plugin_representation_proto"],
+)
+
+proto_library(
+    name = "plugin_service_proto",
+    srcs = ["plugin_service.proto"],
+    deps = [
+        ":detection_proto",
+        ":network_service_proto",
+        ":plugin_representation_proto",
+        ":reconnaissance_proto",
+    ],
+)
+
+java_proto_library(
+    name = "plugin_service_java_proto",
+    deps = [":plugin_service_proto"],
+)
+
+py_proto_library(
+    name = "plugin_service_py_pb2",
+    deps = [":plugin_service_proto"],
+)
+
+java_grpc_library(
+    name = "plugin_service_java_grpc",
+    protos = [":plugin_service_proto"],
+    deps = [
+        ":detection_java_proto",
+        ":network_service_java_proto",
+        ":plugin_representation_java_proto",
+        ":plugin_service_java_proto",
+        ":reconnaissance_java_proto",
+    ],
+)
+
+python_grpc_library(
+    name = "plugin_service_py_pb2_grpc",
+    protos = [":plugin_service_proto"],
+    deps = [":plugin_service_py_pb2"],
 )
