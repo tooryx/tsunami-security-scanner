@@ -105,33 +105,22 @@ subprojects {
         ]
     }
 
+    dependencies {
+        errorprone "com.google.errorprone:error_prone_core:${errorproneVersion}"
+        errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
+    }
+
+    // Disable ErrorProne for all generated codes.
+    tasks.withType(JavaCompile).configureEach {
+        options.errorprone.disableWarningsInGeneratedCode = false
+        options.errorprone.excludedPaths = '.*/build/generated/.*'
+    }
+
     // Resolving conflicting NameResolverProvider from grpc-core.jar and
     // grpc-netty-shaded.jar, https://github.com/grpc/grpc-java/issues/10853
     shadowJar {
         zip64 true
         mergeServiceFiles()
-    }
-
-    if (rootProject.properties.get('errorProne', true)) {
-        dependencies {
-            errorprone "com.google.errorprone:error_prone_core:${errorproneVersion}"
-            errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
-        }
-
-        // Disable ErrorProne for all generated codes.
-        tasks.withType(JavaCompile).configureEach {
-            options.errorprone.disableWarningsInGeneratedCode = false
-            options.errorprone.excludedPaths = '.*/build/generated/.*'
-        }
-    } else {
-        // Disable Error Prone
-        allprojects {
-            afterEvaluate { project ->
-                project.tasks.withType(JavaCompile) {
-                    options.errorprone.enabled = false
-                }
-            }
-        }
     }
 
     plugins.withId('java') {
@@ -167,39 +156,6 @@ subprojects {
             publications {
                 maven(MavenPublication) {
                     from components.java
-
-                    pom {
-                        name = project.group + ':' + project.name
-                        url = 'https://github.com/google/tsunami-security-scanner'
-                        afterEvaluate {
-                            // description is not available until evaluated.
-                            description = project.description
-                        }
-
-                        licenses {
-                            license {
-                                name = 'Apache 2.0'
-                                url = 'https://opensource.org/licenses/Apache-2.0'
-                            }
-                        }
-
-                        scm {
-                            connection = 'scm:git:https://github.com/google/tsunami-security-scanner.git'
-                            developerConnection = 'scm:git:git@github.com:google/tsunami-security-scanner.git'
-                            url = 'https://github.com/google/tsunami-security-scanner'
-                        }
-
-                        developers {
-                            developer {
-                                id = 'com.google.tsunami'
-                                name = 'Tsunami Contributors'
-                                email = 'tsunami-security-scanner@googlegroups.com'
-                                url = 'https://github.com/google/tsunami-security-scanner'
-                                organization = 'Tsunami Authors'
-                                organizationUrl = 'https://www.google.com'
-                            }
-                        }
-                    }
                 }
             }
 
