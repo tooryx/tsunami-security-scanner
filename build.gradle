@@ -9,7 +9,6 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
     apply plugin: 'idea'
-    apply plugin: "signing"
 
     apply plugin: 'net.ltgt.errorprone'
     apply plugin: 'com.gradleup.shadow'
@@ -215,10 +214,6 @@ subprojects {
 
                 mavenLocal()
             }
-        }
-
-        signing {
-            sign publishing.publications.maven
         }
 
         shadowJar {
