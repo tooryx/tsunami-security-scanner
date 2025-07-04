@@ -206,16 +206,10 @@ subprojects {
 
             repositories {
                 maven {
-                    def stagingUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-                    def releaseUrl = stagingUrl
-                    def snapshotUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-                    url = version.endsWith('SNAPSHOT') ? snapshotUrl : releaseUrl
+                    url = 'https://maven.pkg.github.com/tooryx/tsunami-security-scanner'
                     credentials {
-                        if (rootProject.hasProperty('ossrhUsername')
-                                && rootProject.hasProperty('ossrhPassword')) {
-                            username = rootProject.ossrhUsername
-                            password = rootProject.ossrhPassword
-                        }
+                        username = System.getenv("GITHUB_ACTOR")
+                        password = System.getenv("GITHUB_TOKEN")
                     }
                 }
 
