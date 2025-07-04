@@ -205,7 +205,9 @@ subprojects {
 
             repositories {
                 maven {
-                    url = 'https://maven.pkg.github.com/tooryx/tsunami-security-scanner'
+                    url = version.endsWith('SNAPSHOT') ?
+                        'https://maven.pkg.github.com/tooryx/tsunami-security-scanner/snapshots' :
+                        'https://maven.pkg.github.com/tooryx/tsunami-security-scanner'
                     credentials {
                         username = System.getenv("GITHUB_ACTOR")
                         password = System.getenv("GITHUB_TOKEN")
